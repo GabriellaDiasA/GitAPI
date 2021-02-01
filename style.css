@@ -27,7 +27,7 @@
     width: 100%;
     z-index: 2;
     position: absolute;
-    background-color: rgb(56, 56, 56);
+    background-color: rgb(72, 72, 72);
 }
 
 #titleDiv{
@@ -76,7 +76,8 @@ h2{
     flex-flow: column;
     align-items: center;
     box-sizing: border-box;
-    padding-top: 80px;
+    padding-top: 90px;
+    padding-bottom: 20px;
     height: 100%;
     width: 100%;
     background-color: rgb(24, 24, 24);
@@ -103,20 +104,18 @@ h2{
     display: flex;
     flex-flow: column;
     box-sizing: border-box;
-    border-radius: 60px;
+    border-radius: 20px;
     border-width: 2px;
     border-style: solid;
     border-color: rgb(32, 32, 32);
     margin-top: 15px;
-    min-height: 120px;
+    height: auto;
     width: 90%;
     background-color: rgb(48, 48, 48);
 
-    padding-left: 45px;
-    padding-right: 45px;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-top: 5px;
-
-    overflow: hidden;
 }
 
 p{
@@ -127,8 +126,8 @@ p{
 }
 
 .reposContainer a{
-    display: inline-block;
-    height: 25px;
+    display: block;
+    height: auto;
     font-size: 25px;
     color: white;
     font-family: Google Sans,arial,sans-serif;
@@ -148,4 +147,7 @@ p{
     font-size: small;
     padding-top: 2px;
     font-style: italic;
+    display: block;
+    height: auto;
+    padding-bottom: 5px;
 }

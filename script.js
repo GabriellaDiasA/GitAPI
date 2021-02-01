@@ -39,8 +39,11 @@ class UserView{
     }
 
     draw(){
+        if (this.repositories == undefined) {
+            UserView.errorDraw();
+            return;
+        }
         bottomDiv.append(this.userNameDiv);
-
         for(let repos in this.repositories){
             let div = this.reposDiv;
             let current = this.repositories[repos];
@@ -65,6 +68,15 @@ class UserView{
             bottomDiv.append(div);
         }
     }
+
+    static errorDraw(){
+        let errorMsgDiv = document.createElement('div');
+        errorMsgDiv.setAttribute('id', 'usernameDiv');
+        let header = document.createElement('h2');
+        header.textContent = `User ${searchBar.value} NOT FOUND! Oh no!`;
+        errorMsgDiv.append(header);
+        bottomDiv.append(errorMsgDiv);
+    }
 }
 
 class UserModel{
@@ -80,10 +92,19 @@ class UserModel{
         let req = new XMLHttpRequest();
         req.open("GET", `https://api.github.com/users/${this.username}`, false);
         req.addEventListener('load', () => {
-            let response = JSON.parse(req.responseText);
-            this.userData = response;
+            try{
+                let response = JSON.parse(req.responseText);
+                if(req.status == 404) throw new Error("User not found!");
+                else if(req.status != 200) throw new Error("Something has gone awry!");
+                this.userData = response;
+                console.log(response);
+                this.repositories = new Repositories(this.username);
+            }
+            catch (ex) {
+                console.log(ex.message);
+            }
         });
-        this.repositories = new Repositories(this.username);
+        req.send();
     }
 }
 
@@ -99,6 +120,7 @@ class Repositories{
         req.addEventListener('load', () => {
             let response = JSON.parse(req.responseText);
             this.collection = response;
+            console.log("responseRepos");
         });
         req.send();
     }
